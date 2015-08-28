@@ -1,0 +1,107 @@
+Timeout=1000;
+Terminator=LF;
+
+getVersion {
+    out ":GIV";
+    in ":IV%s";
+}
+
+getSysId {
+    out ":GSI";
+    in ":ID%#s";
+}
+
+reset {
+    out ":R";
+    in ":E-1,0";
+}
+
+getSensorType {
+    out ":GST0";
+    in ":ST0,%d";
+}
+
+calibrate {
+    out ":CS0";
+    in ":E0,0";
+}
+
+home {
+    out ":FRM0,%(\$1.RVAL)d,0,0";
+    in ":E0,0";
+}
+
+stop {
+    out ":S0";
+    in ":E0,0";
+}
+
+getPos {
+    out ":GP0";
+    in ":P0,%d";
+}
+
+getTargetPos {
+    out ":GTP0";
+    in ":TP0,%d";
+}
+
+getStatus {
+    out ":GS0";
+    in ":S0,%d";
+}
+
+getStepIncrement {
+    out ":GTE0,0,%(\$1)d";
+    in ":SI0,%*d,%d";
+}
+
+setStepIncrement {
+    @init{ getStepIncrement };
+    out ":STE0,0,%(\$1)d,%d";
+    in ":E0,0";
+}
+
+getMaxFreq {
+    out ":GTE0,1,%(\$1)d";
+    in ":MF0,%*d,%d";
+}
+
+setMaxFreq {
+    @init{ getMaxfreq };
+    out ":STE0,1,%(\$1)d,%d";
+    in ":E0,0";
+}
+
+getTableSensorType {
+    out ":GTE0,2,%(\$1)d";
+    in ":ST0,%*d,%d";
+}
+
+setTableSensorType {
+    @init{ getTableSensorType };
+    out ":STE0,2,%(\$1)d,%d";
+    in ":E0,0";
+}
+
+getQuadFreq {
+    out ":GQFS0";
+    in ":QFS0,%d";
+}
+
+setQuadFreq {
+    @init { getQuadFreq };
+    out ":SQFS0,%d";
+    in ":E0,0";
+}
+
+getTargetLimit {
+    out ":GTLE0";
+    in ":TLE0,%d";
+}
+
+setTargetLimit {
+    @init { getTargetLimit };
+    out ":STLE0,%d";
+    in ":E0,0";
+}

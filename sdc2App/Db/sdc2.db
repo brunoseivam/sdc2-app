@@ -1,0 +1,271 @@
+record(stringin, "$(P)Version") {
+    field(DESC, "Software Version")
+    field(DTYP, "stream")
+    field(INP,  "@sdc2.proto getVersion() $(PORT)")
+    field(PINI, "YES")
+}
+
+record(stringin, "$(P)SerialNumber") {
+    field(DESC, "Serial Number")
+    field(DTYP, "stream")
+    field(INP,  "@sdc2.proto getSysId() $(PORT)")
+    field(PINI, "YES")
+}
+
+record(bo, "$(P)Reset") {
+    field(DESC, "Reset")
+    field(DTYP, "stream")
+    field(OUT,  "@sdc2.proto reset() $(PORT)")
+}
+
+record(mbbi, "$(P)SensorType") {
+    field(DESC, "Sensor Type")
+    field(DTYP, "stream")
+    field(INP,  "@sdc2.proto getSensorType() $(PORT)")
+    field(PINI, "YES")
+    field(ZRVL, 1)
+    field(ZRST, "S")
+    field(ONVL, 2)
+    field(ONST, "SR")
+    field(TWVL, 5)
+    field(TWST, "SP")
+    field(THVL, 8)
+    field(THST, "SR20")
+    field(FRVL, 9)
+    field(FRST, "M")
+    field(FVVL, 16)
+    field(FVST, "G605S")
+    field(SXVL, 17)
+    field(SXST, "G775S")
+    field(SVVL, 21)
+    field(SVST, "SD")
+    field(EIVL, 36)
+    field(EIST, "SR77T")
+}
+
+record(bo, "$(P)Calibrate") {
+    field(DESC, "Calibrate")
+    field(DTYP, "stream")
+    field(OUT,  "@sdc2.proto calibrate() $(PORT)")
+}
+
+record(bo, "$(P)HomeDir")
+{
+    field(DESC, "Home Direction")
+    field(DTYP, "Soft Channel")
+    field(ZNAM, "Forward")
+    field(ONAM, "Reverse")
+    field(VAL,  0)
+    field(PINI, "YES")
+}
+
+record(bo, "$(P)Home") {
+    field(DESC, "Home")
+    field(DTYP, "stream")
+    field(OUT,  "@sdc2.proto home($(P)HomeDir) $(PORT)")
+}
+
+record(bo, "$(P)Stop") {
+    field(DESC, "Stop")
+    field(DTYP, "stream")
+    field(OUT,  "@sdc2.proto stop() $(PORT)")
+}
+
+record(ai, "$(P)Position") {
+    field(DESC, "Position")
+    field(DTYP, "stream")
+    field(INP,  "@sdc2.proto getPos() $(PORT)")
+    field(EGU,  "nm")
+    field(SCAN, ".1 second")
+}
+
+record(ai, "$(P)TargetPosition") {
+    field(DESC, "Target Position")
+    field(DTYP, "stream")
+    field(INP,  "@sdc2.proto getTargetPos() $(PORT)")
+    field(EGU,  "nm")
+    field(SCAN, ".5 second")
+}
+
+record(mbbi, "$(P)Status") {
+    field(DESC, "Status")
+    field(DTYP, "stream")
+    field(INP,  "@sdc2.proto getStatus() $(PORT)")
+    field(SCAN, ".1 second")
+    field(ZRVL, 0)
+    field(ZRST, "Stopped")
+    field(ONVL, 1)
+    field(ONST, "Stepping")
+    field(TWVL, 3)
+    field(TWST, "Holding")
+    field(THVL, 4)
+    field(THST, "Targeting")
+    field(FRVL, 5)
+    field(FRST, "Move Delay")
+    field(FVVL, 6)
+    field(FVST, "Calibrating")
+    field(SXVL, 7)
+    field(SXST, "Homing")
+    field(SVVL, 10)
+    field(SVST, "Open Loop Move")
+}
+
+record(mbbi, "$(P)QuadFreq_RBV") {
+    field(DESC, "Quadrature Frequency")
+    field(DTYP, "stream")
+    field(INP,  "@sdc2.proto getQuadFreq() $(PORT)")
+    field(PINI, "YES")
+    field(ZRST, "20 MHz")
+    field(ONST, "10 MHz")
+    field(TWST, "5 MHz")
+    field(THST, "4 MHz")
+    field(FRST, "2.5 MHz")
+    field(FVST, "2 MHz")
+    field(SXST, "1 MHz")
+    field(SVST, "0.5 MHz")
+    field(EIST, "0.2 MHz")
+    field(NIST, "0.1 MHz")
+}
+
+record(mbbo, "$(P)QuadFreq") {
+    field(DESC, "Quadrature Frequency")
+    field(DTYP, "stream")
+    field(OUT,  "@sdc2.proto setQuadFreq() $(PORT)")
+    field(FLNK, "$(P)QuadFreq_RBV")
+    field(ZRST, "20 MHz")
+    field(ONST, "10 MHz")
+    field(TWST, "5 MHz")
+    field(THST, "4 MHz")
+    field(FRST, "2.5 MHz")
+    field(FVST, "2 MHz")
+    field(SXST, "1 MHz")
+    field(SVST, "0.5 MHz")
+    field(EIST, "0.2 MHz")
+    field(NIST, "0.1 MHz")
+}
+
+record(ai, "$(P)TargetLimit_RBV") {
+    field(DESC, "Target Limit Position")
+    field(DTYP, "stream")
+    field(INP,  "@sdc2.proto getTargetLimit() $(PORT)")
+    field(EGU,  "nm")
+    field(PINI, "YES")
+}
+
+record(ao, "$(P)TargetLimit") {
+    field(DESC, "Target Limit Position")
+    field(DTYP, "stream")
+    field(OUT,  "@sdc2.proto setTargetLimit() $(PORT)")
+    field(FLNK, "$(P)TargetLimit_RBV")
+    field(EGU,  "nm")
+}
+
+record(ao, "$(P)TableLine") {
+    field(DESC, "Configuration table line")
+    field(DTYP, "Soft Channel")
+    field(HOPR, "7")
+    field(LOPR, "0")
+    field(VAL,  "0")
+    field(PINI, "YES")
+    field(FLNK, "$(P)TableLineFanout")
+}
+
+record(fanout, "$(P)TableLineFanout") {
+    field(LNK1, "$(P)TableSensorType_RBV")
+    field(LNK2, "$(P)TableStepInc_RBV")
+    field(LNK3, "$(P)TableMaxFreq_RBV")
+    field(SELM, "All")
+}
+
+record(mbbi, "$(P)TableSensorType_RBV") {
+    field(DESC, "Sensor Type")
+    field(DTYP, "stream")
+    field(INP,  "@sdc2.proto getTableSensorType($(P)TableLine) $(PORT)")
+    field(PINI, "YES")
+    field(ZRVL, 1)
+    field(ZRST, "S")
+    field(ONVL, 2)
+    field(ONST, "SR")
+    field(TWVL, 5)
+    field(TWST, "SP")
+    field(THVL, 8)
+    field(THST, "SR20")
+    field(FRVL, 9)
+    field(FRST, "M")
+    field(FVVL, 16)
+    field(FVST, "G605S")
+    field(SXVL, 17)
+    field(SXST, "G775S")
+    field(SVVL, 21)
+    field(SVST, "SD")
+    field(EIVL, 36)
+    field(EIST, "SR77T")
+}
+
+record(mbbo, "$(P)TableSensorType") {
+    field(DESC, "Sensor Type")
+    field(DTYP, "stream")
+    field(OUT,  "@sdc2.proto setTableSensorType($(P)TableLine) $(PORT)")
+    field(FLNK, "$(P)SensorTypeFanout")
+    field(ZRVL, 1)
+    field(ZRST, "S")
+    field(ONVL, 2)
+    field(ONST, "SR")
+    field(TWVL, 5)
+    field(TWST, "SP")
+    field(THVL, 8)
+    field(THST, "SR20")
+    field(FRVL, 9)
+    field(FRST, "M")
+    field(FVVL, 16)
+    field(FVST, "G605S")
+    field(SXVL, 17)
+    field(SXST, "G775S")
+    field(SVVL, 21)
+    field(SVST, "SD")
+    field(EIVL, 36)
+    field(EIST, "SR77T")
+}
+
+record(fanout, "$(P)SensorTypeFanout") {
+    field(LNK1, "$(P)TableSensorType_RBV")
+    field(LNK2, "$(P)SensorType")
+    field(SELM, "All")
+}
+
+record(ai, "$(P)TableStepInc_RBV") {
+    field(DESC, "Step Increment per Pulse")
+    field(DTYP, "stream")
+    field(INP,  "@sdc2.proto getStepIncrement($(P)TableLine) $(PORT)")
+    field(EGU,  "nm")
+    field(PINI, "YES")
+}
+
+record(ao, "$(P)TableStepInc") {
+    field(DESC, "Step Increment per Pulse")
+    field(DTYP, "stream")
+    field(OUT,  "@sdc2.proto setStepIncrement($(P)TableLine) $(PORT)")
+    field(EGU,  "nm")
+    field(FLNK, "$(P)TableStepInc_RBV")
+}
+
+record(ai, "$(P)TableMaxFreq_RBV") {
+    field(DESC, "Max pulse frequency")
+    field(DTYP, "stream")
+    field(INP,  "@sdc2.proto getMaxFreq($(P)TableLine) $(PORT)")
+    field(EGU,  "Hz")
+    field(PINI, "YES")
+    field(LOPR, "1")
+    field(HOPR, "18500")
+}
+
+record(ao, "$(P)TableMaxFreq") {
+    field(DESC, "Max pulse frequency")
+    field(DTYP, "stream")
+    field(OUT,  "@sdc2.proto setMaxFreq($(P)TableLine) $(PORT)")
+    field(EGU,  "Hz")
+    field(LOPR, "1")
+    field(HOPR, "18500")
+    field(FLNK, "$(P)TableMaxFreq_RBV")
+}
+
